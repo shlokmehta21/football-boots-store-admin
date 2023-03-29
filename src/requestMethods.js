@@ -1,7 +1,6 @@
 import axios from "axios";
 
-const BASE_URL =
-  "https://football-boots-store-api-production.up.railway.app/api/";
+const BASE_URL = "https://footballstoreapi.up.railway.app/api/";
 
 export const publicRequest = axios.create({
   baseURL: BASE_URL,
