@@ -15,6 +15,7 @@ function FeatureChart() {
     const getIncome = async () => {
       try {
         const response = await userRequest.get("/orders/income");
+        console.log(response);
         setIncome(response.data);
         setPercentage(
           (response.data[1].total * 100) / response.data[0].total - 100
@@ -35,11 +36,15 @@ function FeatureChart() {
       </div>
       <div className="bottom">
         <div className="featuredChart">
-          <CircularProgressbar
-            value={percentage}
-            text={`${String(percentage).split(".")[0]}%`}
-            strokeWidth={5}
-          />
+          {income.length !== 1 ? (
+            <CircularProgressbar
+              value={percentage}
+              text={`${String(percentage).split(".")[0]}%`}
+              strokeWidth={5}
+            />
+          ) : (
+            ""
+          )}
         </div>
         <p className="title">Total Sales Made Today</p>
         <p className="amount">${income[1]?.total}</p>

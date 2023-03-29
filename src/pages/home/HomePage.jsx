@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useMemo } from "react";
 import Chart from "../../components/Chart/Chart";
-import FeatureChart from "../../components/featureChart/FeatureChart";
 import NavBar from "../../components/layout/navbar/NavBar";
 import SideBar from "../../components/layout/sideBar/SideBar";
 import BaseTable from "../../components/table/Table";
@@ -71,9 +70,8 @@ function HomePage() {
         </div>
 
         <div className="charts">
-          <FeatureChart />
           <Chart
-            aspect={2 / 1}
+            aspect={3 / 1}
             data={userStats}
             title="User Analytics"
             grid
