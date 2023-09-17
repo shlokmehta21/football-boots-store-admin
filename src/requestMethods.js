@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = "https://football-boots-store-jovt0p32r-greenberg-hammeed.vercel.app/api/";
+const BASE_URL = "https://football-boots-store-api.vercel.app/api/";
 
 export const publicRequest = axios.create({
   baseURL: BASE_URL,
