@@ -6,6 +6,7 @@ import BaseTable from "../../components/table/Table";
 import Widget from "../../components/widget/Widget";
 import "./Home.scss";
 import { userRequest } from "../../requestMethods";
+import axios from "axios";
 
 function HomePage() {
   const [orders, setOrders] = useState([]);
@@ -35,21 +36,52 @@ function HomePage() {
         const response = await userRequest.get("/orders");
         setOrders(response.data);
       } catch (error) {
-        console.log(error);
+        if (error.response) {
+          console.log(error.response.data);
+          console.log(error.response.status);
+        }
       }
     };
 
     const getUserStats = async () => {
       try {
-        const response = await userRequest.get("/users/userstats");
-        response.data.map((item) =>
-          setUserStats((prev) => [
-            ...prev,
-            { name: MONTHS[item._id - 1], "Active User": item.total },
-          ])
+        const TOKEN = sessionStorage.getItem("TOKEN");
+
+        const headers = {
+          "Content-Type": "application/json",
+        };
+
+        if (TOKEN) {
+          console.log(TOKEN);
+          headers["token"] = `Bearer ${TOKEN}`;
+        }
+
+        const response = await axios.get(
+          `https://football-boots-store-api.vercel.app/api/users/userstats`,
+          {
+            headers,
+          }
         );
+
+        console.log(response, "response");
+
+        const updatedUserStats = response.data.map((item) => ({
+          name: MONTHS[item._id - 1],
+          "Active User": item.total,
+        }));
+
+        setUserStats((prev) => [...prev, ...updatedUserStats]);
       } catch (error) {
-        console.log(error);
+        if (error.response) {
+          console.log(error.response.data);
+          console.log(error.response.status);
+          console.log(error.response.headers);
+        } else if (error.request) {
+          console.log(error.request);
+        } else {
+          console.log("Error", error.message);
+        }
+        console.log(error.config);
       }
     };
 

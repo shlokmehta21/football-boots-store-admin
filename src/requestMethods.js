@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = "https://football-boots-store-api.vercel.app/api/";
+const BASE_URL = "https://football-boots-store-api.vercel.app/api";
 
 export const publicRequest = axios.create({
   baseURL: BASE_URL,
@@ -20,7 +20,7 @@ userRequest.interceptors.request.use(
     return config;
   },
   (error) => {
-    // console.log("request error", error);
+    console.log("request error", error);
     return Promise.reject(error);
   }
 );
